@@ -9,7 +9,9 @@ function helper(min, max) {
 };
 
 button.addEventListener('click', function () {
-    let predictionNumber = helper(1, 6);
+    makeListByTemplate(textForecast.textContent, percentForecast.textContent);
+
+    const predictionNumber = helper(1, 6);
     let predictionText = "";
 
     switch (predictionNumber) {
@@ -32,22 +34,22 @@ button.addEventListener('click', function () {
 
     textForecast.textContent = `${predictionText}`;
 
-    let predictionPercent = helper(0, 100);
+    const predictionPercent = helper(0, 100);
 
     percentForecast.textContent = `Вероятность: ${predictionPercent}%`;
-
-    function makeListByTemplate(textForecast, percentForecast) {
-        const myList = listTemplate.content.cloneNode(true);
-
-        myList.querySelector('h3').textContent = textForecast;
-        myList.querySelector('p').textContent = percentForecast;
-
-        return myList;
-    }
-    const testList = makeListByTemplate(`${predictionText}`, `Вероятность: ${predictionPercent}%`);
-    list.prepend(testList);
 });
 
+function makeListByTemplate(textForecast, percentForecast) {
+    if (!textForecast || !percentForecast) {
+        return;
+    }
+    const myList = listTemplate.content.cloneNode(true);
+
+    myList.querySelector('h3').textContent = textForecast;
+    myList.querySelector('p').textContent = percentForecast;
+
+    list.prepend(myList);
+};
 
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
 
