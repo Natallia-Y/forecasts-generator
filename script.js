@@ -1,3 +1,56 @@
+const button = document.querySelector('.forecast-btn');
+const list = document.querySelector('.forecasts');
+const listTemplate = document.querySelector('#forecast-item');
+const textForecast = document.querySelector('h1');
+const percentForecast = document.querySelector('p');
+
+function helper(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
+button.addEventListener('click', function () {
+    makeListByTemplate(textForecast.textContent, percentForecast.textContent);
+
+    const predictionNumber = helper(1, 6);
+    let predictionText = "";
+
+    switch (predictionNumber) {
+        case 1:
+            predictionText = "Сегодня тебя ждет невероятное знакомство";
+            break;
+        case 2:
+            predictionText = "По возвращению домой, тебя ждет вкусный ужин и подарок";
+            break;
+        case 3:
+            predictionText = "На работе тебя ждет повышение";
+            break;
+        case 4:
+            predictionText = "День обещает быть насыщенным на эмоции";
+            break;
+        case 5:
+            predictionText = "Сегодня тебе позвонят и скажут ту новость, которую ты так ждешь";
+            break;
+    };
+
+    textForecast.textContent = `${predictionText}`;
+
+    const predictionPercent = helper(0, 100);
+
+    percentForecast.textContent = `Вероятность: ${predictionPercent}%`;
+});
+
+function makeListByTemplate(textForecast, percentForecast) {
+    if (!textForecast || !percentForecast) {
+        return;
+    }
+    const myList = listTemplate.content.cloneNode(true);
+
+    myList.querySelector('h3').textContent = textForecast;
+    myList.querySelector('p').textContent = percentForecast;
+
+    list.prepend(myList);
+};
+
 /* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
 
 /* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
